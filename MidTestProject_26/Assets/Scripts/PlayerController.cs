@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float moveInput;
 
+    private bool isGiant = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,10 +27,20 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        if (moveInput < 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if (moveInput > 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+        if (isGiant)
+        {
+            if (moveInput < 0)
+                transform.localScale = new Vector3(2, 2, 2);
+            else if (moveInput > 0)
+                transform.localScale = new Vector3(-2, 2, 2);
+        }
+        else
+        {
+            if (moveInput < 0)
+                transform.localScale = new Vector3(1, 1, 1);
+            else if (moveInput > 0)
+                transform.localScale = new Vector3(-1, 1, 1);
+        }
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
@@ -63,6 +75,19 @@ public class PlayerController : MonoBehaviour
             collision.GetComponent<LevelObject>().MoveToNextLevel();
         }
 
+        if (collision.CompareTag("Enemy"))
+        {
+            if (isGiant)
+                Destroy(collision.gameObject);
+            else
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (collision.CompareTag("Item"))
+        {
+            isGiant = true;
+            Destroy(collision.gameObject);
+        }
     }
 
     
