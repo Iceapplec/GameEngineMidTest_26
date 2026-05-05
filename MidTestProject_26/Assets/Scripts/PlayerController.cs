@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Animator pAni;
     private bool isGrounded;
     private float moveInput;
+
+    float score;
 
     private bool isGiant = false;
 
@@ -72,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Finish"))
         {
+            HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
+
             collision.GetComponent<SceneLoader>().MoveToNextLevel();
         }
 
@@ -86,6 +91,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Item"))
         {
             isGiant = true;
+            score += 100f;
             Destroy(collision.gameObject);
         }
     }
