@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Finish"))
         {
-            collision.GetComponent<LevelObject>().MoveToNextLevel();
+            collision.GetComponent<SceneLoader>().MoveToNextLevel();
         }
 
         if (collision.CompareTag("Enemy"))
