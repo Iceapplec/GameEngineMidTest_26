@@ -74,4 +74,6 @@ public class PanelManager : MonoBehaviour
         if (highScore2Panel != null)
             highScore2Panel.SetActive(false);
     }
+
+
 }
