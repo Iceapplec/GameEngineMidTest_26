@@ -92,8 +92,9 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Item"))
         {
+
             isGiant = true;
-            score += 100f;
+            score += collision.GetComponent<ItemObject>().GetPoint();
             Destroy(collision.gameObject);
         }
     }
