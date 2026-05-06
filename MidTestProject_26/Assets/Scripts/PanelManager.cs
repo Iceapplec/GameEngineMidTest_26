@@ -7,6 +7,8 @@ public class PanelManager : MonoBehaviour
     // STAGE 버튼에 연결할 HighScore 패널들
     public GameObject highScore1Panel;
     public GameObject highScore2Panel;
+    public GameObject RankPanel;
+
 
     private void Awake()    
     {
@@ -75,5 +77,15 @@ public class PanelManager : MonoBehaviour
             highScore2Panel.SetActive(false);
     }
 
+    public void ShowRankingPanel()
+    {
+        if (RankPanel != null)
+            RankPanel.SetActive(true);
+    }
 
+    public void HideRankingPanel()
+    {
+        if (RankPanel != null)
+            RankPanel.SetActive(false);
+    }
 }
